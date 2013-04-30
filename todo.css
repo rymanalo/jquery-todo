@@ -1,0 +1,25 @@
+body {
+  text-align: center;
+}
+
+.container {
+  width:50%;
+  margin: auto;
+}
+
+.not_done {
+  float: left;
+}
+
+.done {
+  float: right;
+}
+
+.done li{
+  color: red;
+  text-decoration: line-through;
+}
+
+ul {
+  list-style-type: none;
+}
