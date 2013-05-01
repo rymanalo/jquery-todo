@@ -1,32 +1,32 @@
 $(document).ready(function(){
 
-var input_value;
+  $('form').submit(function(event) {
+    event.preventDefault();
+    var input_value = $("<span>" + $('textarea').val() + "</span>");
+    var lis = $("<li></li>");
+    var checkBox = $('<input type="checkbox" id="checkbox">');
+    var remove = $('<button class="remove"></button>');
 
+    remove.on('click', function () {
+      $(this).parent().remove();
+    });
 
-$('form').submit(function() {
-  if ($('textarea').val() !== '') {
-    input_value = $('textarea').val();
-    $('.not_done').append('<li>' + input_value + '<input type="checkbox" id="checkbox" /><button class="remove"></button></li>');
-  }
-  $('textarea').val('');
-  return false;
-});
+    checkBox.on('click', function() {
+      var li = $(this).parent();
 
-$(document).on('click', '.not_done #checkbox', function () {
-  input_value = $(this).parent();
-  $('.done').append('<li>' + input_value.text() + '<input type="checkbox" id="checkbox" checked/><button class="remove"></button></li>');
-  $(this).parent().remove();
-});
+      if ($(this).prop('checked')) {
+        $('.done').append(li).removeClass('not_done').addClass('done');
+      }
+      else {
+        $('.not_done').append(li).removeClass('done').addClass('not_done');
+      }
+    });
 
+    $(checkBox).appendTo(lis);
+    $(input_value).appendTo(lis);
+    $(remove).appendTo(lis);
+    $(lis).appendTo('.not_done');
+    $("input_value").val('');
 
-$(document).on('click', '.done #checkbox', function () {
-  input_value = $(this).parent();
-  $('.not_done').append('<li>' + input_value.text() + '<input type="checkbox" id="checkbox" /><button class="remove"></button></li>');
-  $(this).parent().remove();
-});
-
-$(document).on('click', '.remove', function () {
-  $(this).parent().remove();
-});
-
+  });
 });
